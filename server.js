@@ -16,7 +16,7 @@ const app = express();
 
 // CORS configuration - Add your frontend URL here
 const allowedOrigins = [
-  'https://vitejsvitee6tglbnt-btzr--5173--4c73681d.local-credentialless.webcontainer.io'
+  'https://vitejsvitee6tglbnt-btzr--5173--4c73681d.local-credentialless.webcontainer.io/'
 ];
 
 app.use(cors({
