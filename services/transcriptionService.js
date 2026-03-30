@@ -24,8 +24,8 @@ Return your response in this exact JSON format without any additional text:
   "text": "the translated transcription"
 }
 
-If there are multiple languages in the audio, detect the primary one.
-If the audio is unclear or silent, return sourceLanguage as "unknown" and text as "Audio unclear or no speech detected".`;
+If the audio is unclear or silent, return sourceLanguage as "en" and text as "Audio unclear or no speech detected".
+If you cannot detect the language, default to "en".`;
 
     // Generate content with audio
     const result = await model.generateContent([
@@ -44,16 +44,24 @@ If the audio is unclear or silent, return sourceLanguage as "unknown" and text a
     // Parse JSON response
     try {
       const parsed = JSON.parse(responseText);
+      
+      // Validate source language, default to 'en' if invalid
+      let sourceLang = parsed.sourceLanguage || 'en';
+      const validLanguages = ['en', 'ig', 'ha', 'yo'];
+      if (!validLanguages.includes(sourceLang)) {
+        sourceLang = 'en';
+      }
+      
       return {
-        sourceLanguage: parsed.sourceLanguage || 'unknown',
+        sourceLanguage: sourceLang,
         text: parsed.text || 'No transcription generated',
         targetLanguage: targetLanguage
       };
     } catch (parseError) {
       // Fallback if Gemini doesn't return valid JSON
       return {
-        sourceLanguage: 'unknown',
-        text: responseText,
+        sourceLanguage: 'en',
+        text: responseText || 'No transcription generated',
         targetLanguage: targetLanguage
       };
     }
