@@ -14,12 +14,14 @@ const NoteSchema = new mongoose.Schema(
     sourceLanguage: {
       type: String,
       required: true,
-      enum: ['en', 'ig', 'ha', 'yo'],
+      enum: ['en', 'ig', 'ha', 'yo', 'unknown'],
+      default: 'en'
     },
     targetLanguage: {
       type: String,
       required: true,
       enum: ['en', 'ig', 'ha', 'yo'],
+      default: 'en'
     },
   },
   {
