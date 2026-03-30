@@ -5,7 +5,7 @@ const LANGUAGES = [
   { code: 'yo', name: 'Yoruba' }
 ];
 
-const MAX_AUDIO_DURATION = 300; // 5 minutes in seconds
+const MAX_AUDIO_DURATION = 600; // 10 minutes in seconds
 const MAX_AUDIO_SIZE = 50 * 1024 * 1024; // 50MB
 
 const RATE_LIMIT = {
