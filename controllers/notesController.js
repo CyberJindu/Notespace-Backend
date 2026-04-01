@@ -44,6 +44,7 @@ const createNote = async (req, res) => {
     content,
     sourceLanguage: sourceLanguage || 'unknown',
     targetLanguage: targetLanguage || 'en',
+    audioFileName: audioFileName || 'Untitled Recording'
   });
   
   res.status(201).json(note);
