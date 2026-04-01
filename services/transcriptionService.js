@@ -41,9 +41,13 @@ If you cannot detect the language, default to "en".`;
     const response = result.response;
     const responseText = response.text();
     
+    // CLEAN THE RESPONSE: Remove Markdown formatting if the AI wrapped it
+    // Example: remove ```json and ```
+    const cleanJSONString = responseText.replace(/```json/gi, '').replace(/```/g, '').trim();
+    
     // Parse JSON response
     try {
-      const parsed = JSON.parse(responseText);
+      const parsed = JSON.parse(cleanJSONString);
       
       // Validate source language, default to 'en' if invalid
       let sourceLang = parsed.sourceLanguage || 'en';
@@ -58,7 +62,8 @@ If you cannot detect the language, default to "en".`;
         targetLanguage: targetLanguage
       };
     } catch (parseError) {
-      // Fallback if Gemini doesn't return valid JSON
+      // Fallback if Gemini doesn't return valid JSON even after cleanup
+      console.error('JSON Parse Error:', parseError);
       return {
         sourceLanguage: 'en',
         text: responseText || 'No transcription generated',
