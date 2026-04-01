@@ -32,7 +32,7 @@ const getNote = async (req, res) => {
 // @route   POST /api/notes
 // @access  Private
 const createNote = async (req, res) => {
-  const { content, sourceLanguage, targetLanguage } = req.body;
+  const { content, sourceLanguage, targetLanguage, audioFileName } = req.body;
   
   if (!content) {
     res.status(400);
