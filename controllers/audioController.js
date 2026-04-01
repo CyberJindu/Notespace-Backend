@@ -97,7 +97,10 @@ const transcribeAudioHandler = async (req, res) => {
       }, 5000);
     }
     
-    res.json(result);
+    res.json({
+  ...result,
+  fileName: req.file.originalname 
+});
   } catch (error) {
     console.error('Transcription error:', error);
     res.status(res.statusCode === 200 ? 500 : res.statusCode).json({
