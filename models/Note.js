@@ -11,6 +11,12 @@ const NoteSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Content is required'],
     },
+
+    audioFileName: {
+      type: String,
+      default: 'Untitled Recording'
+    },
+
     sourceLanguage: {
       type: String,
       required: true,
